@@ -7,33 +7,28 @@ const MAX = 12;
 function getFavNumberFact() {
     let trivia = axios.get(`${BASEURL}/${favNum}`, {params: {json: true}})
     return trivia
-
-    let fact = ''
-    trivia
-        .then(res => {
-            fact = res
-            console.log('resolved fact', fact)
-        })
-        .catch(err => {
-            console.log(err)
-            return 'Error'
-        })
-    return fact
 }
 
 // My fav number
 getFavNumberFact()
-    .then(res => console.log(res))
+    .then(res => {
+        console.log('Favorite number fact:')
+        console.log(res.data.text)
+    })
     .catch(err => console.log(err))
 
 // Multiple numbers in a single query
 let multipleTrivia = axios.get(`${BASEURL}/${MIN}..${MAX}`, {params: {json: true}})
-// let trivia = axios.get(BASEURL, {params: {number: 13}})
 
-multipleTrivia.then(res => console.log(res))
+multipleTrivia
+    .then(res => {
+        console.log('Facts about multiple numbers:')
+        console.log(res.data)
+    })
+    .catch(err => console.log(err))
 
 // Multiple facts about my fav number
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 4; i++) {
     const fact = getFavNumberFact()
         .then(res => {
             const fact = document.createElement('li');
