@@ -25,10 +25,10 @@ multipleTrivia
     .then(res => {
         console.log('Facts about multiple numbers:')
         console.log(res.data)
-        for (const f of res.data) {
+        for (const f in res.data) {
             const fact = document.createElement('li');
-            fact.innerText = f;
-            multipleFacts.append(fact)
+            fact.innerText = res.data[f];
+            multipleNumbers.append(fact)
         }
     })
     .catch(err => console.log(err))
@@ -39,7 +39,7 @@ for (let i = 0; i < 4; i++) {
         .then(res => {
             const fact = document.createElement('li');
             fact.innerText = res.data.text;
-            multipleNumbers.append(fact)
+            multipleFacts.append(fact)
 
         })
         .catch(err => console.log(err))
