@@ -1,6 +1,7 @@
 const hitMeBtn = document.querySelector('button')
 const cards = document.querySelector('div.cards')
 const baseURL = 'https://deckofcardsapi.com/api/deck'
+let endGame = false;
 
 let deck = ''
 
@@ -14,6 +15,10 @@ function drawCard(deck) {
 }
 
 hitMeBtn.addEventListener('click', (e) => {
+    if (endGame) {
+        alert('Out of cards! Refresh the page to play again')
+        return
+    }
     drawCard(deck).then(res => {
         const card = document.createElement('img')
         card.src = res.data.cards[0].image
@@ -21,7 +26,11 @@ hitMeBtn.addEventListener('click', (e) => {
         const angle = Math.floor(Math.random() * 20)
 
         card.style.rotate = `${angle}deg`
-        cards.append(card)
+        cards.append(card);
+
+        if (res.data.remaining === 0) {
+            endGame = true;
+        }
 
     })
 })

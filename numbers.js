@@ -1,4 +1,5 @@
-const UL = document.querySelector('ul')
+const multipleFacts = document.getElementById('multiple-facts')
+const multipleNumbers = document.getElementById('multiple-numbers')
 const BASEURL = ' http://numbersapi.com';
 const favNum = 13;
 const MIN = 7;
@@ -24,6 +25,11 @@ multipleTrivia
     .then(res => {
         console.log('Facts about multiple numbers:')
         console.log(res.data)
+        for (const f of res.data) {
+            const fact = document.createElement('li');
+            fact.innerText = f;
+            multipleFacts.append(fact)
+        }
     })
     .catch(err => console.log(err))
 
@@ -33,7 +39,7 @@ for (let i = 0; i < 4; i++) {
         .then(res => {
             const fact = document.createElement('li');
             fact.innerText = res.data.text;
-            UL.append(fact)
+            multipleNumbers.append(fact)
 
         })
         .catch(err => console.log(err))
